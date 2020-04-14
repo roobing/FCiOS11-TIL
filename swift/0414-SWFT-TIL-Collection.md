@@ -40,7 +40,7 @@
 3. error(단, Any 타입으로 하면 가능)
 
    ```swift
-   let strArray5 = ["apple", 3.14, 1]
+   let strArray5 = ["apple", 3.14, 1] // 여러가지 타입이 혼용된 배열은 불가
    ```
 
 ### 배열 요소 갯수
