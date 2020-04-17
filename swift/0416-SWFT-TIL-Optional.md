@@ -147,3 +147,139 @@
   2. nil value 를 체크해야 할 일이 생길 경우는 일반적인 옵셔널 타입 사용
   3. 프로퍼티 지연 초기화에 많이 사용. 프로퍼티를 좀 뒤늦게 초기화해서 사용하고 싶을때 사용.
 
+### NIL-coalescing operator
+
+* coalesce : 큰 덩어리로 합치다
+
+* 옵셔널을 좀 더 간결하게 사용하는 방법
+
+  ```swift
+  optionalStr = nil
+  
+  var result = ""
+  if optionalStr != nil {
+     result = optionalStr!
+  } else {
+     result = "This is a nil value"
+  }
+  print(optionalStr) // nil
+  print(result) // "This is a nil value"
+  
+  //위의 내용을 아래처럼 간결하게
+  
+  let anotherExpression = optionalStr ?? "This is a nil value" // optionalStr이 nil이면 ?? 뒤에 값을 할당한다
+  print(optionalStr) // nil
+  print(anotherExpression) // "This is a nil value"
+  ```
+
+* 사용법의 좋은 예: 앱의 기본 색깔을 유저가 바꾸는 과정
+
+  ```swift
+  let defaultColorName = "red" // 앱을 깔았는데 기본 컬러가 레드다.
+  var userDefinedColorName: String? // 유저가 할당할 수 있는 부분(옵셔널)
+  
+  var colorNameToUse = userDefinedColorName ?? defaultColorName // 유저가 정의한 컬러가 없으면(userDefinedColorName이 nil 이면) 기본 컬러를 쓴다(defaultColorName을 colorNameToUse에 할당한다.)
+  print(colorNameToUse) // red
+  
+  userDefinedColorName = "green" // 유저가 그린으로 바꿨다
+  colorNameToUse = userDefinedColorName ?? defaultColorName // 컬러에 그린을 할당한다.
+  print(colorNameToUse) // green
+  ```
+
+* 삼항연산자(조건식 ? a : b)로 구현해보기
+
+  ```swift
+  optionalStrr != nil ? optionalStrr! : "This is a nil value"
+  ```
+
+### Optional chaining
+
+* 옵셔널 타입으로 정의된 값이 하위 프로퍼티나 메소드를 가지고 있을 때, 이 요소들을 if 구문을 쓰지 않고 간결하게 사용할 수 있는 방법
+
+  ```swift
+  let greeting: [String: String] = [
+    "John": "Wassup",
+    "Jane": "Morning",
+    "Edward": "Yo",
+    "Tom": "Howdy",
+    "James": "Sup"
+  ]
+  
+  print(greeting["John"]) // key를 넣어서 value를 꺼냄. 근데 옵셔널로 나옴. 왜냐, key에 해당하는 value가 있을수도 있고 없을수도있기 때문이다.
+  print(greeting["John"]?.count) // .count 말고도 다른 연관된 프로퍼티 혹은 메서드를 쓰기 위해선 옵셔널로 써줘야함. 따라서 결과적으로 .count도 옵셔널로 바뀜.
+  print(greeting["NoName"]) // nil. 왜냐, NoName이라는 key가 없으므로 value도 없음
+  
+  // Optional Chaining
+  print(greeting["John"]?.lowercased().uppercased()) // Optional(WASSUP). greeting["John"]은 옵셔널 타입이고 따라서 하위 프로퍼티나 메서드를 쓰려면 이렇게 optional chaining을 해줘야한다.
+  print(greeting["John"]!.lowercased().uppercased()) // gretting["John"]에 대해 강제 옵셔널 해제해서도 하위  하지만 값이 없게되면 error.
+  print(greeting["Alice"]?.lowercased().uppercased()) // nil
+  print(greeting["Alice"]!.lowercased().uppercased()) // error.
+  
+  
+  // Optional Binding
+  if let greetingValue = greeting["John"] {
+    print(greetingValue.lowercased().uppercased())
+  }
+  ```
+
+### Optional Type Declaration의 두가지 방법
+
+* [Int]? vs [Int?]
+
+  ```swift
+  var optionalArr1: [Int]? = [1,2,3]
+  var optionalArr2: [Int?] = [1,2,3]
+  
+  var arr1: [Int]? = [1,2,3] // 배열의 각 요소값은 옵셔널이 아니고 반드시 인트. 배열자체가 옵셔널. 배열이 있으면 배열요소가 무조건 있는거고 배열이 없으면 값도 없는거임.
+  //arr1.append(nil) // error. 배열 요소를 추가 불가능
+  //arr1 = nil
+  //print(arr1?.count) // Optional(3)
+  //print(arr1?[1]) // Optional(2)
+  
+  var arr2: [Int?] = [1,2,3] // 배열자체는 무조건 있는거고 배열요소가 옵셔널임.
+  arr2.append(nil) // [1, 2, 3, nil]
+  //arr2 = nil // error. arr2=[]은 됨.
+  print(arr2.count) // 4. 배열자체는 Optional이 아니기 때문. 따라서 ? 도 필요없음.
+  print(arr2[1]) // Optional(2). 배열요소인 arr2[1]은 옵셔널임.
+  print(arr2.last) // Optional(nil)
+  ```
+
+### Optional Function Type
+
+* 함수에 Optional type 적용하기
+
+  ```swift
+  func voidFunction() {
+    print("voidFunction is called")
+  } // input, output이 void
+  
+  //var functionVariable: () -> () = voidFunction // void 함수를 변수에 할당
+  var functionVariable: (() -> ())? = voidFunction // void 함수를 옵셔널 변수에 할당
+  functionVariable?() // ().
+  
+  functionVariable = nil
+  functionVariable?() // nil
+  
+  func sum(a: Int, b: Int) -> Int {
+    a + b
+  }
+  sum(a: 2, b: 3)
+  
+  //var sumFunction: (Int, Int) -> Int = sum(a:b:) // 함수의 input, output 타입을 맞춰서 변수에 할당한거임
+  var sumFunction: ((Int, Int) -> Int)? = sum(a:b:) // 옵셔널로 바꿔준거임.
+  type(of: sumFunction)
+  
+  //print(sumFunction?(1, 2))
+  //print(sumFunction!(1, 2))0
+  
+  //sumFunction = nil
+  //sumFunction?(1, 2)
+  //sumFunction!(1, 2) // !을 통해 무조건 값이 있을거라 했는데 nil을 할당
+  
+  var dict1: [String: String?] = [
+      "A":nil //이런것도 가능
+  ]
+  dict1["C"] // 이렇게 하면 nil이 value로 반환되는거는 swift내부 로직이다.
+  ```
+
+  
