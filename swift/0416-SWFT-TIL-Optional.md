@@ -13,16 +13,6 @@
 
 * 값이 있으며, 그 값에 접근하기 위해 옵셔널을 벗겨(unwrap)낼 수 있음
 
-  ```swift
-  let possibleNumber = "123" // 123
-  var convertedNumber = Int(possibleNumber) 
-  type(of: convertedNumber) // optional(123). 왜냐, 변수 possiblenNumber는 String 타입이다(타입추론). 이 String 타입은 상황에 따라 형변환이 가능할수도(숫자 문자열인 경우"123")있고 아닐(문자 문자열인 경우"abc")수 도있다. 즉 값이 있을 수 도(변환이 가능한 경우) 있고 없을 수 도(변환이 불가능한 경우)있는 것이다. 따라서 convertedNumber는 optional이 된다.
-  
-  //type(of: Int("123")) // 이건 문자 리터럴이 형변환 되었으므로 optional Int
-  //type(of: Int(3.14)) // 이건 숫자 리터럴이 형변환 되었으므로 무조건 Int
-  //type(of: Int(3))
-  
-  ```
 
 ### Optional Type Declaration
 
@@ -42,11 +32,27 @@
   // var optionalNumber: Int?      // 정수 or nil
   ```
 
+* 형변환에 의한 옵셔널( 정식 타입 선언은 아님)
+
+  ```swift
+  let possibleNumber = "123" // 123
+  var convertedNumber = Int(possibleNumber) 
+  type(of: convertedNumber) // optional(123). 왜냐, 변수 possiblenNumber는 String 타입이다(타입추론). 이 String 타입은 상황에 따라 형변환이 가능할수도(숫자 문자열인 경우"123")있고 아닐(문자 문자열인 경우"abc")수 도있다. 즉 값이 있을 수 도(변환이 가능한 경우) 있고 없을 수 도(변환이 불가능한 경우)있는 것이다. 따라서 convertedNumber는 optional이 된다.
+  
+  //type(of: Int("123")) // 이건 문자 리터럴이 형변환 되었으므로 optional Int
+  //type(of: Int(3.14)) // 이건 숫자 리터럴이 형변환 되었으므로 무조건 Int
+  //type(of: Int(3))
+  ```
+
+
 ### Optional Unwrapping
 
-* 변수에 적용된 Optional을 해제하는 두가지 방법
-  1. Binding
-  2. Foced Unwrapping
+* 변수에 적용된 Optional을 해제하는 세가지 방법
+  1. 명시적 해제
+     * 강제 해제(Forced unwrapping): !
+     * 비강제 해제: Optional binding
+  2. 컴파일러에 의한 자동 해제
+  3. 묵시적 해제(Implicty unwrapping): 옵셔널 타입 선언시 ?대신 !연산자를 이용한 자동 해제
 
 #### Optional Binding
 
@@ -54,7 +60,7 @@
 
 * if 조건문 내에서 일반 상수(let)에 옵셔널 값을 대입하는 방식
 
-  방법 1) 옵셔널 타입으로 선언된 변수 이용
+  방법 1) 옵셔널 타입으로 선언한 경우
 
   ```swift
   var optionalStr: String? = "Hello, Optional"
@@ -68,12 +74,12 @@
   }
   ```
 
-  방법 2) 형변환을 통해 옵셔널이 된 경우
+  방법 2) 형변환을 통해 옵셔널 타입이 된 경우
 
   ```swift
   let someValue = "100"
   
-  if let number = Int(someValue) {
+  if let number = Int(someValue) { // 형변환에 의해 someValue는 optional 타입이됨
     print("\"\(someValue)\" has an integer value of \(number)")
   } else {
     print("Could not be converted to an integer")
@@ -96,16 +102,18 @@
 
 * 강제적으로 옵셔널을 해제하는 방법(반드시 값이 있을거야! 라고 말하는거임ㅋㅋ)
 
-* 옵셔널 타입 값 뒤에 '!'를 붙임
+* 옵셔널 타입 값 뒤에 '!'를 붙임**(단, 해당 옵셔널 타입 변수가 호출되는 상황에서 붙여야함)**
+
+* <strong style="color: red;">반드시 if 조건문을 통해 해당 옵셔널 변수가 nil인지 아닌지 검사해야함.</strong>
 
   ```swift
   var convertedNumber: Int? = 123 // 옵셔널 인트 타입.
   
   if convertedNumber != nil {
   //  print("convertedNumber has an integer value of \(convertedNumber).")
-    print("convertedNumber has an integer value of \(convertedNumber!).")
+    print("convertedNumber has an integer value of \(convertedNumber!).")// 옵셔널 타입 변수 convertedNumber가 호출되는 상황에서 !를 붙인다.
   }
-  
+  type(of: convertedNumber) // Optional<String>.Type .앞에서 강제해제했다 하더라도 호출되는 순간만 해제.
   print(convertedNumber) // warning. 옵셔널을 그대로 사용했으므로
   print(convertedNumber!) // ok. 옵셔널을 강제로 해제해줬으므로
   ```
@@ -120,18 +128,20 @@
 
 #### Implicity Unwrapped Optional
 
-* 옵셔널 타입으로 선언되었지만 정작 값을 사용할 때는 옵셔널이 해제되는 방법
+* 옵셔널 타입임에도 불구하고 명시적 옵셔널 해제 없이 논옵셔널 타입과 연산이 가능함.
 
-* 쉽게 말해 옵셔널 타입을 논옵셔널 타입처럼 사용할 수 있게하는 방법
+* 명시적으로 해제(! 또는 Binding)하지 않으면 옵셔널 타입을 유지함.
+
+* 옵셔널 타입 선언 시 ? 대신 ! 연산자를 이용해 선언하는 방법이므로 용어는 해제이지만 사실상 '묵시적 옵셔널 선언'임.
 
   ```swift
   // Non Optional 타입인 것처럼 함께 사용 가능
   var assumedString: String! = "An implicitly unwrapped optional string." // 느낌표가 붙은건 반드시 값이 있다라는걸 나타낼때 붙인다. 얘는 옵서녈이긴 한데 반드시 값이 있다. 언젠간 값이 할당될거다. 그러니까 일반 변수처럼 써도된다.
   let stillOptionalString = assumedString
-  type(of: assumedString)
-  type(of: stillOptionalString)
-  print(assumedString)
-  print(assumedString!)
+  type(of: assumedString) //Optional<String>.Type
+  type(of: stillOptionalString) //Optional<String>.Type
+  print(assumedString) // Optional("An imp~")
+  print(assumedString!) // "An imp~"
   
   // String? -> String (x)
   // String! -> String (o)
