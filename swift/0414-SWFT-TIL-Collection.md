@@ -66,16 +66,16 @@ fruits[0]
 fruits[2]
 //fruits[123]
 
-fruits.startIndex
-fruits.endIndex
-type(of: fruits.endIndex) //fruits.starIndex/endIndex의 데이터 타입은 Int이다.
+fruits.startIndex // 0
+fruits.endIndex // 3
+type(of: fruits.endIndex) // Int. fruits.starIndex/endIndex의 데이터 타입은 Int이다.
 
-fruits[fruits.startIndex]
+fruits[fruits.startIndex] // Apple
 //fruits[fruits.endIndex] 이건 error다. 왜냐, 실제 데이터는 fruits[2]까지만 있다.
-fruits[fruits.endIndex - 1]
+fruits[fruits.endIndex - 1] // Banana
 
-fruits.startIndex == 0
-fruits.endIndex - 1 == 2
+fruits.startIndex == 0 // true
+fruits.endIndex - 1 == 2 // true
 ```
 
 ### Searching
@@ -91,7 +91,7 @@ if alphabet.contains("A") {
 
 if alphabet.contains(where: { str -> Bool in
   // code...
-  return str == "A"
+  return str == "A" // 클로저.
 }) {
   print("contains A")
 }
@@ -271,11 +271,11 @@ if let zValue = words["Z"] {
   print("Not found")
 }
 
-print(words.keys) //key 만을 배열로 뽑음
-print(words.values) // value 만을 배열로 뽑음
+print(words.keys) //key 만을 배열로 뽑음. 하지만 words.key의 타입은 딕셔너리임.
+print(words.values) // value 만을 배열로 뽑음. 하지만 words.values의 타입 또한 딕셔너리임.
 
-let keys = Array(words.keys)
-let values = Array(words.values)
+let keys = Array(words.keys) // words.keys의 타입을 배열로 형변환.
+let values = Array(words.values) // words.values의 타입을 배열로 형변환.
 
 print(keys)
 print(values)
