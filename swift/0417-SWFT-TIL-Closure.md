@@ -1,19 +1,23 @@
-## Closure
+# Closure
 
 * 코드에서 사용하거나 전달할 수 있는 독립적인 기능을 가진 블럭
 * 함수도 클로저의 일종
 * 어떤 기능을 변수에 담아서 사용할 수 있다(?)
 
-### 장점
+## 장점
 
 * 문법 간소화 / 읽기 좋은 코드
 * 지연 생성. 내가 필요할때 만들어진다.
 * 주변 컨텍스트의 값을 캡쳐하여 작업 수행 가능
 * 함수는 미리 만들어놔야(정의해놔야) 사용(단순 호출, 매개변수로써 전달 등등)할 수 있는데, 클로저를 이용하면 함수 정의와 동시에 사용할 수 있다.
 
-### 유형
+## 유형
 
-1. Global functions: 이름을 가지며, 어떤 값도 캡쳐하지 않는 클로저. 전역변수. 프리펑션
+* _전역함수(Global functions)와 중첩함수(Nested functions)는 클로저의 특수한 예에 해당_
+
+### 1. Global functions
+
+* 이름을 가지며, 어떤 값도 캡쳐하지 않는 클로저.
 
 ```swift
 print(1)
@@ -28,7 +32,9 @@ func A() { // Global
 }
 ```
 
-2. Nested functions: 이름을 가지며, 감싸고 있는 함수의 값을 캡쳐하는 클로저. 쉽게 말해 함수안에 함수.
+### 2. Nested functions
+
+* 이름을 가지며, 감싸고 있는 함수의 값을 캡쳐하는 클로저.
 
 ```swift
 func outsideFunction() -> () -> () { // () -> () 이게 리턴 타입이 함수임을 표시.
@@ -47,63 +53,77 @@ nestedFunction()
 nestedFunction()
 ```
 
-3. Closure: 주변 문맥(Context)의 값을 캡쳐할 수 있으며, 간단한 문법으로 쓰여진 <span style="color: red;">이름 없는</span> 클로저
-   1. 기본형
+### 3. Closure
 
-   ```swift
-   func aFunction() { // 보통 함수
-     print("This is a function.")
-   }
-   aFunction() //보통 함수 호출
-   aFunction()
-   
-   ({ // 이름이 없다.
-     print("This is a closure.")
-   })() // 정의와 동시에 호출
-   ```
+* 일회용 함수(익명 함수)
 
-   2. 변수에 할당
+#### 1) 기본적 형태 (경량문법)
 
-   ```swift
-   // 클로저를 변수에 담아 이름 부여 가능
-   let closure = {
-     print("This is a closure.")
-   }
-   closure()
-   closure()
-   
-   // 함수도 변수로 저장 가능
-   func aFunction() { // 보통 함수. 이 함수의 타입은 () -> ()
-     print("This is a function.")
-   }
-   var function = aFunction // 아래의 줄임형
-   var function: () -> () = aFunction // function의 타입은 () -> ()
-   function()
-   
-   
-   // 같은 타입일 경우 함수나 클로저 관계없이 치환 가능
-   function = closure
-   function()
-   type(of: function)
-   type(of: closure)
-   ```
+```swift
+// 일반 함수
+func aFunction(매개변수) -> 반환타입 {
+  print("This is a function.")
+}
+ //일반적 함수 호출
+aFunction()
 
-### Closure syntax
+// 클로저
+{ (매개변수) -> 반환타입 in
+  print("This is a closure.")
+)
+// 클로저 호출 방법
+// 1번: 변수에 할당 후 변수에 함수호출 연산자를 붙여 호출
+var closure = { 클로저 }
+closure()
 
-* 함수를 같은 내용의 클로저로 만드는 법
+//2 번: 클로저의 닫힌 중괄호 바로 뒤에 호출 연산자를 붙여 선언과 동시에 호출
+{ 클로저 
+}()
+```
+
+#### 2) 변수에 할당
+
+```swift
+// 클로저를 변수 할당 가능
+let closure = {
+  print("This is a closure.")
+}
+closure() // 클로저 호출
+
+// 함수도 변수에 할당 가능
+func aFunction() {
+  print("This is a function.")
+}
+var function: () -> () = aFunction // afunction의 타입은 () -> ()
+var function = aFunction // 위의 축약형(타입 추론)
+function() // aFunction 호출과 같은 것
+
+
+// 같은 타입일 경우 함수나 클로저 관계없이 치환 가능
+function = closure
+function()
+type(of: function)
+type(of: closure)
+```
+
+#### 3) Closure syntax
+
+* 특정 함수를 동일한 기능의 클로저로 만드는 법
 
 * 클로저 내에 in 다음이 함수의 내부 code 부분
 
+  변환할 함수 )
+  
   ```swift
   // 파라미터 + 반환 타입을 가진 함수
   func funcWithParamAndReturnType(_ param: String) -> String {
     return param + "!"
   }
-  print(funcWithParamAndReturnType("function"))
+print(funcWithParamAndReturnType("function"))
   ```
 
   방법 1)
-
+  
   ```swift
   // 파라미터 + 반환 타입을 가진 클로저 1
   // Type Annotation
@@ -111,21 +131,21 @@ nestedFunction()
     return param + "!"
   }
   print(closureWithParamAndReturnType1("closure"))
-  // Argument Label은 생략. 함수의 Argument Label을 (_)로 생략한 것과 동일
+// Argument Label은 생략. 함수의 Argument Label을 (_)로 생략한 것과 동일
   ```
 
   방법 2)
-
+  
   ```swift
   // 파라미터 + 반환 타입을 가진 클로저 2
   let closureWithParamAndReturnType2 = { (param: String) -> String in
     return param + "!"
   }
-  print(closureWithParamAndReturnType2("closure"))
+print(closureWithParamAndReturnType2("closure"))
   ```
 
   방법 3)
-
+  
   ```swift
   // 파라미터 + 반환 타입을 가진 클로저 3. 타입 추론과 비슷한 느낌.
   // Type Inference
@@ -135,7 +155,7 @@ nestedFunction()
   print(closureWithParamAndReturnType3("closure"))
   ```
 
-### Syntax optimization (문법 최적화)
+#### 4) Syntax optimization (문법 최적화)
 
 * 문맥을 통해 매개변수 및 반환 값에 대한 타입 추론
 
@@ -186,9 +206,9 @@ nestedFunction()
    // 최종
   ```
 
-### Inline closure
+#### 5) Inline closure
 
-* 함수의 인수(Argument)로 들어가는 클로저
+* 함수의 인수값(Argument)으로 사용되는 클로저
 
   ```swift
   func closureParamFunction(closure: () -> Void) {
@@ -202,7 +222,7 @@ nestedFunction()
   }
   
   closureParamFunction(closure: printFunction) // 위에서 미리 정의된 함수를 매개변수로 넘김
-  closureParamFunction(closure: printClosure) // 위에서 미리 정의된 클로저를 매개변수로 넘김
+  closureParamFunction(closure: printClosure) // 클로저가 할당된 변수(printClosure)를 매개변수로 넘김
   
   // 인라인 클로저 - 변수나 함수처럼 중간 매개체 없이 사용되는 클로저
   closureParamFunction(closure: {
@@ -210,11 +230,11 @@ nestedFunction()
   })
   ```
 
-### Trailing closure(후행 클로저)
+#### 6) Trailing closure(후행 클로저)
 
-* 마지막 인자의 경우 ()가 닫힌 후 {}안에 작성될 수 있다.
+* 함수의 마지막 인자값이 클로저인 경우, 함수의 ( )가 닫힌 바로 뒤에 { }안에 작성될 수 있다.
 
-* 매우 긴 내용이 클로저에 사용하면 유용하다.(매우 긴 내용의 클로저를 마지막 인자로 사용하는 것)
+* 매우 긴 내용의 클로저를 마지막 인자로 사용하게 될 때 유용하다.
 
   ```swift
   closureParamFunction(closure: {
@@ -225,7 +245,7 @@ nestedFunction()
   } // Trailing 방식
   closureParamFunction {
     print("Trailing closure - Implicit closure parameter name")
-  } // Trailing 방식. ()까지 생략해벌임.
+  } // Trailing 방식. ()까지 생략해벌임.ㅎㄷㄷ
   
   func multiClosureParams(closure1: () -> Void, closure2: () -> Void) {
     closure1()
