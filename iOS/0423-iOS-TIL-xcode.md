@@ -146,7 +146,7 @@ into the background
 
 스토리보드의 View Controller는 ViewController.swift 파일과 연결된다.
 
-![0423-SWFT-TIL-storyboard-Image01](/Users/woobincheon/Documents/fcios11/03-TIL/swift/SWFT-TIL-Images/0423-SWFT-TIL-storyboard-Image01.png)
+![0423-iOS-TIL-storyboard-Image01](/Users/woobincheon/Documents/fcios11/03-TIL/iOS/iOS-TIL-Images/0423-iOS-TIL-storyboard-Image01.png)
 
 View: 디바이스의 화면 전체
 
@@ -247,13 +247,13 @@ class ViewController: UIViewController {
 
 스토리보드에 나오는 화살표(이니셜 뷰컨트롤 옵션)
 
-스토리보드를 사용할때 어떤걸 제일 먼저 실행할건지 지정해줌![0423-SWFT-TIL-storyboard-Image02](/Users/woobincheon/Documents/fcios11/03-TIL/swift/SWFT-TIL-Images/0423-SWFT-TIL-storyboard-Image02.png)
+스토리보드를 사용할때 어떤걸 제일 먼저 실행할건지 지정해줌![0423-iOS-TIL-storyboard-Image02](/Users/woobincheon/Documents/fcios11/03-TIL/iOS/iOS-TIL-Images/0423-iOS-TIL-storyboard-Image02.png)
 
 아래와 같이 되면 빈바탕이 먼저 나온다
 
-![0423-SWFT-TIL-storyboard-Image03](/Users/woobincheon/Documents/fcios11/03-TIL/swift/SWFT-TIL-Images/0423-SWFT-TIL-storyboard-Image03.png)
+![0423-iOS-TIL-storyboard-Image03](/Users/woobincheon/Documents/fcios11/03-TIL/iOS/iOS-TIL-Images/0423-iOS-TIL-storyboard-Image03.png)
 
-따라서 이걸로 에트리포이트 설정
+따라서 이걸로 Root View 설정
 
 
 

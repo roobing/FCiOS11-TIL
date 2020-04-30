@@ -120,7 +120,7 @@
   
 ## 4. View Controller Life Cycle
 
-<img src="SWFT-TIL-Images/0427-SWFT-TIL-UIViewCont01.png" style="zoom: 40%;"/>
+<img src="iOS-TIL-Images/0427-iOS-TIL-UIViewCont01.png" style="zoom: 40%;"/>
 
 ## 5. 화면전환 구현
 
