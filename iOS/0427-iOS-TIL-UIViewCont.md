@@ -58,14 +58,14 @@
 
 ## 3. window와 Root View Controller
 
-### 1. window
+### 1) window
 
 * UIWindow는 그 자체로는 유저에게 보여지는 컨텐츠를 가지지 못함
 * Window는 정확히 하나의 Root view controller를 가지는데 이것을 통해 컨텐츠를 표현.
 * 여러가지 뷰를 올리기위한 가장 밑바탕이 되는 뷰
 * UILabel 처럼 여러개를 생성할 수 도 있음. 그러나 기본적으로는 하나만 생성.
 
-### 2. window 초기화
+### 2) window 초기화
 
 * AppDelegate 혹은 SceneDelegate에서 window를 초기화 시킬 수 있다.
 
@@ -94,9 +94,11 @@
           return true
       }
   ```
+
   
-  방법2 ) SceneDelegate: AppDelegate 안쓰는 경우(iOS 13 이상). 스토리보드 안쓰는 경우
-  
+
+방법2 ) SceneDelegate: AppDelegate 안쓰는 경우(iOS 13 이상). 스토리보드 안쓰는 경우
+
   ```swift
   import UIKit
   
@@ -116,8 +118,64 @@
       }
   }
   ```
+
+
+
+* 초기화 문법 해석
+
+  * 1) window 인스턴스 생성
+
+  ```swift
+  class AppDelegate: UIResponder, UIApplicationDelegate {
+      
+      var window: UIWindow?
+    //...
+  }
+  ```
+
+  AppDelegate 클래스의 프로퍼티로 선언한다.
+
   
+
+  * 2) window 인스턴스 초기화
+
+  ```swift
+  window = UIWindow(frame: UIScreen.main.bounds)
+  ```
+
+  ​	(1) UIWindow(frame: )인 이유
+
+  ​		(frame: )은 UIWindow 인스턴스(window)의 초기화 방법이다.
+
+  ​		아래는 개발자문서 'UIView' 부분 발췌(UIWindow 클래스는 UIView 클래스를 상속받는다)
+
+  ![스크린샷 2020-05-06 오후 1.48.01](/Users/woobincheon/Documents/pictures/스크린샷 2020-05-06 오후 1.48.01.png)
+
   
+
+  ​	(2) (frame: )의 인자가 UIScreen.main.bounds인 이유
+
+  ​	frame의 타입이 CGRect이고 .bounds의 타입도 CGRect이다.
+
+  
+
+  * 3) window의 root view 설정
+
+  ```swift
+  window?.rootViewController = ViewController() // window의 Root View Controller를 ViewController.swift의 ViewController로 설정
+  ```
+
+  
+
+  * 4) 해당 window를 key window로 지정
+
+  ```swift
+  window?.makeKeyAndVisible() // window가 여러개일 경우, 핵심 키 윈도우를 지정해주는 것
+  ```
+
+  
+
+    
 ## 4. View Controller Life Cycle
 
 <img src="iOS-TIL-Images/0427-iOS-TIL-UIViewCont01.png" style="zoom: 40%;"/>
