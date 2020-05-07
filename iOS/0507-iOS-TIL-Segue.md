@@ -8,7 +8,7 @@
 
 ## 개념도
 
-![0507-iOS-TIL-Segue01](/Users/woobincheon/Documents/fcios11/03-TIL/iOS/iOS-TIL-Images/0507-iOS-TIL-Segue01.png)
+![0507-iOS-TIL-Segue01](iOS-TIL-Images/0507-iOS-TIL-Segue01.png)
 
 
 
@@ -38,7 +38,7 @@ show / present modal 둘 다 present modal style로 실행됨
 
 #### (1) 트리거(버튼 등)와 전환될 뷰를 1:1 로 Segue 연결하고 Attirbutes Inspector에서 Identifier를 정의한다.
 
-![0507-iOS-TIL-Segue02](/Users/woobincheon/Documents/fcios11/03-TIL/iOS/iOS-TIL-Images/0507-iOS-TIL-Segue02.png)
+![0507-iOS-TIL-Segue02](iOS-TIL-Images/0507-iOS-TIL-Segue02.png)
 
 
 
@@ -110,7 +110,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 #### (2) SecondViewController의 버튼을 unwind 메소드 연결
 
-![0507-iOS-TIL-Segue03](/Users/woobincheon/Documents/fcios11/03-TIL/iOS/iOS-TIL-Images/0507-iOS-TIL-Segue03.png)
+![0507-iOS-TIL-Segue03](iOS-TIL-Images/0507-iOS-TIL-Segue03.png)
 
 
 
