@@ -282,9 +282,9 @@ var student: Student? = Student(teacher: teacher!)// student count 1(if teacher 
 teacher?.student = student //student count 2
 ```
 * 순환 해제 방법
-  1. strong  : 명시적으로 nil 대입 필요. teacher?.student = nil
-  2. unowned : 자동으로 deinit. nil 처리 된 속성에 접근하면 런타임 에러 발생
-  3. weak    : 자동으로 deinit. nil 처리 된 속성에 접근하면 nil 반환
+  1. strong: 명시적으로 nil 대입 필요. teacher?.student = nil
+  2. unowned: 자동으로 deinit. nil 처리 된 속성에 접근하면 런타임 에러 발생
+  3. weak: 자동으로 deinit. nil 처리 된 속성에 접근하면 nil 반환
   ```swift
   print("\n---------- [ teacher release ] ----------\n")
   // case 1: student strong, teacher strong
