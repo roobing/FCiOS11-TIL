@@ -1,4 +1,6 @@
-# Container View
+# Container View Controller
+
+## Navigation Controller
 
 네비게이션 컨트롤러: 화면이 present되는게 아니라 나와서 덮는것
 
@@ -24,7 +26,10 @@
 
 프리퍼 라지 타이틀
 
+* 전환방법
+  * Embed In-> 2nd View 추가 및 Storyboard ID 설정-> Root View에 navigation item 추가 -> navigation item에 bar button 추가 ->  bar button을 Root View에 IBAction 연결 -> instantiateViewController로 2nd View 인스턴스 생성-> pushViewController로 전환
 
+## Tabbar Controller
 
 탭바
 
@@ -33,32 +38,4 @@
 최대 5개까지만 표시됨. 그 이상은 ... 으로 표시됨.
 
 아이템을 5개 초과해서 쓸 일은 거의 없음
-
-
-
-# UserDefault
-
-메모리와 파일로 저장하는 형태의 차이점은?
-
-메모리는 앱이 종료되면 업서지고 파일은 아니다
-
-
-
-유저디폴트는 보통 싱글톤으로 만들어쓴다
-
-싱글톤: 인스턴스 한개만 만들어서 모두가 공유해서 쓰는것
-
-
-
-키 자체가 있는지 확인해보려면
-
-.contain 이런걸로 확인해야한다.
-
-
-
-모든 타입을 그대로 다 집어넣을수있는건 아니다
-
-기본제공타입들(bool, int, double 등등)은 바로 저장 가능하다.
-
-
 
