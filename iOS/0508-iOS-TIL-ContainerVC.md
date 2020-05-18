@@ -2,7 +2,12 @@
 
 ## Navigation Controller
 
-네비게이션 컨트롤러: 화면이 present되는게 아니라 나와서 덮는것
+### 특징
+
+* 화면이 present되는게 아니라 나와서 덮는것
+* 뷰 컨트롤러들의 포인터 내비게이션 스택을 이용하여 관리
+* 스택의 최상위에 뷰 컨트롤러를 추가할 때 pushViewController 메소드 사용
+* 스택의 최상위의 뷰 컨트롤러를 제거할 때 popViewController 메소드 사용
 
 
 
@@ -29,7 +34,7 @@
 * 전환방법
   * Embed In-> 2nd View 추가 및 Storyboard ID 설정-> Root View에 navigation item 추가 -> navigation item에 bar button 추가 ->  bar button을 Root View에 IBAction 연결 -> instantiateViewController로 2nd View 인스턴스 생성-> pushViewController로 전환
 
-
+<br>
 
 ## 코드로 네비게이션 컨트롤러 만들기
 
