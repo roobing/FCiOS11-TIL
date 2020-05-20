@@ -102,12 +102,14 @@ int main(int argc, const char * argvp[]) {
 <br>
 
 ### Allocation and Release
+
 ```swift
 var obj1: Person? = Person(testCase: "case1") // stack 0x1234, count 1
 obj1 = nil // nil, count 0 => deinit
 ```
 <br>
 ### 참조 카운트 증가
+
 ```swift
 var obj2: Person? = Person(testCase: "case2") // count 1
 var countUp = obj2 // count 2
@@ -117,6 +119,7 @@ countUp = nil // count 0 => deinit
 ```
 <br>
 ### Collection에 의한 참조 카운트
+
 ```swift
 var obj4: Person? = Person(testCase: "something") // count 1
 var obj3: Person? = Person(testCase: "case3") // count 1
@@ -132,6 +135,7 @@ array.remove(at: 0) // obj3 count 0 => deinit
 ```
 <br>
 ### 강한 참조, 약한 참조
+
 * strong : 기본값. 강한 참조. Reference Count 1 증가
 * unowned : 미소유 참조. Count 증가하지 않음. 참조 객체 해제 시에도 기존 포인터 주소 유지
 * weak : 약한 참조. Count 증가하지 않음. 참조하던 객체 해제 시 nil 값으로 변경
@@ -160,6 +164,7 @@ print("Weak type: ", type(of: weakVar)) // non-optional
 <br>
 
 ## Scope
+
 * 스코프 범위에 의한 할당과 해제
 ```swift
 class LocalScope {
@@ -201,6 +206,7 @@ app?.allocateInstance() // "LocalScope is being deinitialized"
 ```
 <br>
 ## Strong Reference Cycles
+
 * 강한 참조 순환 구조
 ```swift
 class Person {
@@ -253,6 +259,7 @@ tory?.owner = nil
 ```
 <br>
 ## Strong, Weak, Unowned Reference Cycles Relastionship
+
 * 강한, 약한 참조가 혼합된 상황에서의 순환 발생
 ```swift
 class Teacher {
