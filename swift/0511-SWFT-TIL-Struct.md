@@ -46,6 +46,7 @@ struct Deinit {
 ```
 <br>
 ### 참조 타입 vs 값 타입
+
 ```swift
 class Dog {
   var name = "토리"
@@ -74,7 +75,9 @@ cat.name
 ```
 <br>
 ### 생성자 비교
+
 #### 1. var로 선언된 변수
+
 ```swift
 class UserClass1 {
   var name = "홍길동"
@@ -91,6 +94,7 @@ userS1_2.name
 ```
 <br>
 #### 2. 프로퍼티에 초기값이 없을 때
+
 ```swift
 class UserClass2 {
   var name: String
@@ -115,6 +119,7 @@ let userS2 = UserStruct2(name: "홍길동", age: 10)
 ```
 <br>
 #### 3. 저장 프로퍼티 중 일부만 값이 같을 때
+
 ```swift
 class UserClass3 {
   let name: String = "홍길동"
@@ -131,6 +136,7 @@ let userS3 = UserStruct3(age: 10)
 ```
 <br>
 #### 4. 지정(Designated) 생성자와 편의(Convenience) 생성자
+
 ```swift
 class UserClass4 {
   let name: String
@@ -169,6 +175,7 @@ extension UserStruct4 {
 ```
 <br>
 ### Extension
+
 * 상속-수직확장(상위에서 기능 물려받음)
 * 확장-수평확장(자기 자신에게 기능 추가)
 ```swift
@@ -233,6 +240,7 @@ p1.x // 5
 ```
 <br>
 ### 애플 권장 사항
+
 * 구조체를 기본으로 사용(swift는 구조체를 더 선호. SwiftUI는 구조체로 기반.)
 * 클래스를 사용해야 할 때
   1. Objective-C와 호환성이 필요할 때
@@ -241,6 +249,7 @@ p1.x // 5
   4. 값이 중앙에서 관리되고 공유되어야 할 때
 <br>
 ### 기타
+
 * heap 영역에 올라가는 데이터 특징
   1. RC를 관리해야한다.
   2. 값을 공유한다.
