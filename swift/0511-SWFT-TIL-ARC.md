@@ -108,6 +108,7 @@ var obj1: Person? = Person(testCase: "case1") // stack 0x1234, count 1
 obj1 = nil // nil, count 0 => deinit
 ```
 <br>
+
 ### 참조 카운트 증가
 
 ```swift
@@ -118,6 +119,7 @@ obj2 = nil // count 1
 countUp = nil // count 0 => deinit
 ```
 <br>
+
 ### Collection에 의한 참조 카운트
 
 ```swift
@@ -134,6 +136,7 @@ array.remove(at: 0) // obj3 count 0 => deinit
 // count는 결국 절대적인 참조 횟수에 대한 값이다
 ```
 <br>
+
 ### 강한 참조, 약한 참조
 
 * strong : 기본값. 강한 참조. Reference Count 1 증가
@@ -205,6 +208,7 @@ app?.allocateInstance() // "LocalScope is being deinitialized"
 // 2. app?.prop = nil
 ```
 <br>
+
 ## Strong Reference Cycles
 
 * 강한 참조 순환 구조
@@ -258,6 +262,7 @@ giftbot?.pet = nil
 tory?.owner = nil
 ```
 <br>
+
 ## Strong, Weak, Unowned Reference Cycles Relastionship
 
 * 강한, 약한 참조가 혼합된 상황에서의 순환 발생
