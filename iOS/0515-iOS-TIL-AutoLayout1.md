@@ -32,7 +32,7 @@
 ### 2. Auto Resizing 방식
 
 * 스토리보드에서 디폴트 방식
-<img src="iOS-TIL-Images/0514-iOS-TIL-LoginPage01.png" style=" zoom: 50%"/>
+<img src="iOS-TIL-Images/0515-iOS-TIL-AutoLayout1-01.png" style=" zoom: 50%"/>
 <br>
 ### 3. Auto Layout
 
@@ -45,12 +45,12 @@
 ### 1) Control-Dragging Constraints
 
 * 마우스 오른쪽 클릭으로 드래그하여 적용
-<img src="iOS-TIL-Images/0514-iOS-TIL-LoginPage02.png" style=" zoom: 50%"/>
+<img src="iOS-TIL-Images/0515-iOS-TIL-AutoLayout1-02.png" style=" zoom: 50%"/>
 <br>
 ### 2) Auto Layout Tools
 
 * 스토리보드 하단 메뉴에 존재
-<img src="iOS-TIL-Images/0514-iOS-TIL-LoginPage03.png" style=" zoom: 50%"/>
+<img src="iOS-TIL-Images/0515-iOS-TIL-AutoLayout1-03.png" style=" zoom: 50%"/>
 
 1. Update Frames: 제약조건과 맞지 않는 뷰 위치 갱신
 
@@ -59,7 +59,7 @@
 3. Pin: 간격, 크기, 비율 등에 대한 제약 조건 설정
 
      1. 어떤 뷰와 상대적 거리를 설정할건지 선택할 수 있다.
-     <img src="iOS-TIL-Images/0514-iOS-TIL-LoginPage04.png" style=" zoom: 50%"/>
+     <img src="iOS-TIL-Images/0515-iOS-TIL-AutoLayout1-04.png" style=" zoom: 50%"/>
      2. 두 요소를 동시에 선택하면 Equal Widths/Equal Heights 옵션을 사용할 수 있다.
 
 4. Resolve Autolayout Issues: 오토레이아웃 관련 문제 자동 해결
@@ -70,7 +70,7 @@
 
 * second item(BlueView, Item2)에 각종 연산을 해서 first item(RedView, Item1)이 된다.
 * first item은 second item에 각종 연산을 한 값과 같다.
-<img src="iOS-TIL-Images/0514-iOS-TIL-LoginPage05.png" style=" zoom: 50%"/>
+<img src="iOS-TIL-Images/0515-iOS-TIL-AutoLayout1-05.png" style=" zoom: 50%"/>
 <br>
 ### 4) Leading vs Left
 
