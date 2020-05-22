@@ -10,7 +10,7 @@
 
 ![0507-iOS-TIL-Segue01](iOS-TIL-Images/0507-iOS-TIL-Segue01.png)
 
-
+<br>
 
 ## Action segue
 
@@ -18,21 +18,21 @@
 
 버튼, 테이블 셀 등의 이벤트 트리거가 출발점인 경우
 
-
+<br>
 
 ### 2) 네이게이션 바를 사용하는 경우의 segue
 
-viewcontroller(navigation bar포함) 인 경우
+#### (1) viewcontroller(navigation bar포함) 인 경우
 
-show type segue: 전환된 뷰에 navigation bar 포함됨
+1. show type segue: 전환된 뷰에 navigation bar 포함됨
 
-present modal: 전환된 뷰에 navigation bar 불포함됨
+2. present modal: 전환된 뷰에 navigation bar 불포함됨
 
-viewcontroller(default) 인 경우
+#### (2) viewcontroller(default) 인 경우
 
-show / present modal 둘 다 present modal style로 실행됨
+1. show / present modal 둘 다 present modal style로 실행됨
 
-
+<br>
 
 ### 3) 다른 뷰에 데이터 전달하기
 
@@ -40,7 +40,7 @@ show / present modal 둘 다 present modal style로 실행됨
 
 ![0507-iOS-TIL-Segue02](iOS-TIL-Images/0507-iOS-TIL-Segue02.png)
 
-
+<br>
 
 #### (2) 데이터를 전달할 뷰를 설정한다
 
@@ -66,7 +66,7 @@ class SecondViewController: UIViewController {
 }
 ```
 
-
+<br>
 
 #### (3) 해당 ViewController에 커스텀 prepare 메소드를 작성한다.
 
@@ -96,9 +96,9 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 }
 ```
 
+<br>
 
-
-### 4) 디스미스 시키기
+### 4) Dismiss
 
 #### (1) ViewController에 unwind 메소드 작성
 
@@ -112,9 +112,9 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 ![0507-iOS-TIL-Segue03](iOS-TIL-Images/0507-iOS-TIL-Segue03.png)
 
+<br>
 
-
-### 5) 디스미스 하면서 데이터 전달하기(TextField 이용)
+### 5) Dismiss시 데이터 전달하기(TextField 이용)
 
 #### (1) 내려갈 뷰에서 전달할 데이터를 저장파라미터로 저장하기
 
@@ -153,7 +153,7 @@ class SecondViewController: UIViewController {
 }
 ```
 
-
+<br>
 
 #### (2) viewController에서 데이터 받아오기
 
@@ -168,7 +168,7 @@ unwindTo'뷰를 전환시킬 뷰'( ) 작성하기
 }
 ```
 
-
+<br>
 
 ### 6) 아래 두개의 차이점
 
@@ -183,7 +183,7 @@ let secondVC = SecondViewController()는 그냥 스토리보드랑 상관없이 
 
 이런 이유보다도 뷰가 여러개 연결되어있을때는 정확하게 destination을 명시해서 사용해야한다.
 
-
+<br>
 
 ### 7) shouldPerformSegue( ) 메소드
 
@@ -210,9 +210,17 @@ override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?
 }
 ```
 
-
+<br>
 
 ## Manual Segue
 
-1:1로 연결은 action seg
+### 1) 정의
+
+세그웨이와 매칭될 트리거(버튼 등)을 수동으로 설정
+
+![0507-iOS-TIL-Segue041](iOS-TIL-Images/0507-iOS-TIL-Segue04.png)
+
+<br>
+
+### 2) ~ 7) 상기 Action Segue 항목과 동일함
 
