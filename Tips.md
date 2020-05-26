@@ -47,4 +47,16 @@
    }
    ```
    
+7. delegate 메소드들을 사용할때 전달 인자 타입과 레이블을 잘 확인하고 사용해야한다.
+
+   ```swift
+   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) { // 여기서 cell 있는줄 모르고 삽질했다.
+       if checkedIndex.contains(indexPath.row) {
+           cell.accessoryType = .checkmark
+       }
+       else {
+           cell.accessoryType = .none
+       }
+   ```
+
    
