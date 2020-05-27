@@ -1,44 +1,64 @@
 # Container View Controller
 
-## Navigation Controller
+##  Navigation Controller
 
 ### 특징
 
+* 수직적 관계를 가지는 화면 흐름을 관리
+* 탭바 컨트롤러와 뷰 컨트롤러는 일종의 Segue(관계형 Segue)로 연결됨
 * 화면이 present되는게 아니라 나와서 덮는것
+  * presetn는 rootview를 기점으로 계속 생성 하는 것
 * 뷰 컨트롤러들의 포인터 내비게이션 스택을 이용하여 관리
-* 스택의 최상위에 뷰 컨트롤러를 추가할 때 pushViewController 메소드 사용
-* 스택의 최상위의 뷰 컨트롤러를 제거할 때 popViewController 메소드 사용
 
+### 전환방식
 
-
-프레젠트는
-
-루트뷰를 기점으로 계속 띄우는 것
-
-
-
-네비게이션 컨트롤러
-
-루트뷰로 네비게이션컨트롤러를 할당하고 네비게이션컨트롤러
-
-탑뷰는 네이게이션 스택(차일드뷰의 적층)의 가장위
-
-비저블뷰는 가장 최종적으로 보이는 뷰(프레젠트된 뷰)
-
-타이틀
-
-프롬프트: 타이틀위에 작게 나오는
-
-프리퍼 라지 타이틀
-
-* 전환방법
-  * Embed In-> 2nd View 추가 및 Storyboard ID 설정-> Root View에 navigation item 추가 -> navigation item에 bar button 추가 ->  bar button을 Root View에 IBAction 연결 -> instantiateViewController로 2nd View 인스턴스 생성-> pushViewController로 전환
+1. push - pop
+   1. 스택의 최상위에 뷰 컨트롤러를 추가할 때 pushViewController 메소드 사용
+   2. 스택의 최상위의 뷰 컨트롤러를 제거할 때 popViewController 메소드 사용
+2. present - dismiss
+   1. 뷰컨트롤러 직접 호출 방식
 
 <br>
 
-## 코드로 네비게이션 컨트롤러 만들기
+### 스토리보드로 네비게이션 컨트롤러 만들기
 
-### 1. SceneDelegate.swift
+1. Embed In으로 네비게이션 컨트롤러 및 root view 추가
+
+2. 두번째 뷰 추가 및 Inspector 항목 중 Storyboard ID 에 ID 입력
+
+3. root view에 navigation item 추가
+
+4. navigation item에 bar button 추가
+
+5. bar button을 root view에 IBAction 연결
+
+6. IBAction로 두번째 뷰 인스턴스 생성 및 pushViewController(<span style="color: red;">반드시 withIdentifier를 인자로 갖는 놈으로!</span>)
+
+   ```swift
+   @IBAction func pushNextBySBID(_ sender: UIBarButtonItem) {
+       guard let secondVC = self.storyboard?.instantiateViewController(withIdentifier: "secondVC") else { return } // Storyboard에서 생성한 두번째 뷰를 해당 ID을 이용해 인스턴스 생성
+       self.navigationController?.pushViewController(secondVC, animated: true) // push
+   }
+   ```
+
+7. (복귀)두번째 뷰에 버튼 추가 후 IBAction으로 root view 인스턴스 참조 및 pop
+
+   ```swift
+   @IBAction func popBack(_ sender: UIButton) {
+       if let nc = self.navigationController { // root view 인스턴스 생성 및 옵셔널 바인딩
+           nc.popViewController(animated: true) // pop
+       }
+       else {
+           print("navigationController is nil")
+       }
+   }
+   ```
+
+<br>
+
+### 코드로 네비게이션 컨트롤러 만들기
+
+#### 1. SceneDelegate.swift
 
 ```swift
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -82,7 +102,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 <br>
 
-### 2. ViewController.swift
+#### 2. ViewController.swift
 
 ```swift
 class ViewController: UIViewController {
@@ -124,7 +144,7 @@ class ViewController: UIViewController {
 
 <br>
 
-### 3. SecondViewController
+#### 3. SecondViewController
 
 ```swift
 class SecondViewController: UIViewController {
@@ -142,21 +162,47 @@ class SecondViewController: UIViewController {
 }
 ```
 
-***
+<br>
 
 ## Tabbar Controller
 
-탭바
+### 특징
 
-탭바 아이템마다 각각의 뷰컨이 연결됨
+* 수평적 관계를 가지는 화면 흐름을 관리함
+* 탭바 아이템마다 각각의 뷰 컨트롤러가 연결됨
+* 탭바 컨트롤러와 뷰 컨트롤러는 일종의 Segue(관계형 Segue)로 연결됨
 
-최대 5개까지만 표시됨. 그 이상은 ... 으로 표시됨.
+최대 5개까지만 표시됨. 그 이상은 ...(more) 으로 표시됨.
 
 아이템을 5개 초과해서 쓸 일은 거의 없음
 
-## 코드로 탭바 컨트롤러 만들기
+<br>
 
-### 1. SceneDelegate.swift
+### 스토리보드로 탭바 컨트롤러 만들기
+
+<ol>
+  <li>Embed In 으로 탭바 컨트롤러 및 첫번째 뷰 컨트롤러 생성</li>
+  <li>생성된 뷰 컨트롤러의 Inspector의 Bar item Title 설정</li>
+  <li>두번째 뷰 컨트롤러 생성하여 탭바 컨트롤러로 부터 ctrl+드래그로 'Relation Segue'연결</li>
+  <li>두번째 뷰 컨트롤러의 Inspector의 Bar item Title 설정</li>
+</ol>
+
+추가(탭바 컨트롤러의 뷰 컨트롤러를 네비게이션 컨트롤러와 연결하는 법)
+
+5. 해당 뷰 컨트롤러를 네비게이션 컨트롤러로 Embed In
+6. 이후 내용은 '스토리보드로 네비게이션 컨트롤러 만들기'와 같음
+
+주의사항
+
+* 각 탭바 아이템에 대한 설정은 탭바 컨트롤러가 아닌 해당 뷰 컨트롤러의 탭바 아이템 속성을 수정해야한다.
+
+  (단, 탭바 아이템의 탭바 내에서의 순서는 탭바 컨트롤러에서 드래그로 수정 가능하다.)
+
+<br>
+
+### 코드로 탭바 컨트롤러 만들기
+
+#### 1. SceneDelegate.swift
 
 ```swift
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -200,7 +246,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 <br>
 
-### 2. ViewController.swift
+#### 2. ViewController.swift
 
 ```swift
 class ViewController: UIViewController {
@@ -215,7 +261,7 @@ class ViewController: UIViewController {
 
 <br>
 
-### 3. SecondViewController.swift
+#### 3. SecondViewController.swift
 
 ```swift
 class SecondViewController: UIViewController {
@@ -230,7 +276,7 @@ class SecondViewController: UIViewController {
 
 <br>
 
-### 4. ThirdViewController.swift
+#### 4. ThirdViewController.swift
 
 ```swift
 class ThirdViewController: UIViewController {
