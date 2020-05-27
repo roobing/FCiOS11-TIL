@@ -1,38 +1,26 @@
 # Delegate
 
+## 정의
 
+특정 로직(델리게이트 메소드)를 내가 아닌 다른 객체(뷰 컨트롤러)가 구현하도록 위임하는 형태의 디자인 패턴
 
-커스텀 뷰 활용
+텍스트필드가 받은 이벤트(예: 터치)에 의해 호출되는 메소드(델리게이트 메소드)의 내용을 뷰 컨트롤러에 작성하는 것......?ㅠㅠ...
 
-UIView 클래스의 커스텀뷰.swift 만들어서
+<br>
 
-스토리보드의 UIView 객체랑 연결(@IBOutlet)
+## 애플에서 제공하는 델리게이트 패턴
 
+* AppDelegate, SceneDelegate, UITextFiledDelegate 등등
 
+### 예시: AppDelegate
 
-
-
-커스텀 뷰만으로는 2% 부족해
-
-그래서!
-
-
-
-delegate
-
-어떤 특정상황에서, 커스텀뷰를 사용하는 측한데 해당 뷰를 커스터마이징할 수 있게 하는 것/???
-
-각종 커스텀 객체를 커스터마이징 할수있게??
-
-예시
-
-AppDelegate.swift
+내용: 앱의 각 실행단계에서 특정 동작을 실행한다.
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
     // 초기화 작업이 끝나고 뷰컨이 보이기 전에 할거 있으면 여기다 작성해라
-  // 이 메소드가 실행될 시점은 애플만이 알고 있다.
+  // 이 메소드가 실행될 시점(코드의 위치)는 애플만이 알고 있다.
     return true
 }
 
@@ -43,11 +31,15 @@ func applicationDidBecomeActive(_ application: UIApplication) {
 }// 스위프트 데이터 구조와 알고리즘
 ```
 
+<br>
 
+## 커스텀 델리게이트 패턴
 
-커스텀 델리게이트 패턴
+### 예시: CustomViewDelegate
 
-protocol
+내용: 커스텀 뷰의 background 색상이 새로 할당되면 colorForBackground 델리게이트 메소드가 실행된다.
+
+1) 커스텀 델리게이트를 정의한다.
 
 ```swift
 protocol CustomViewDelegate: class {
@@ -55,14 +47,16 @@ protocol CustomViewDelegate: class {
 }
 ```
 
+<br>
 
+2) colorForBackground 델리게이트 메소드가 실행될 시점을 정의한다.
 
-커스텀뷰 안에서 이 델리게이트를 프로퍼티로 가지고 있어야한다.
+여기서는 CustomView 객체의 background 프로퍼티에 새로운 값이 할당될 때.
 
 ```swift
 class CustomView: UIView {
     
-    weak var delegate: CustomViewDelegate? // 뷰컨트롤러에서 customView.delegate = self로 작성하므로 순환 참조가 발생할 수 있어서 weak로 선언.
+    weak var delegate: CustomViewDelegate? // 뷰컨트롤러에서   = self로 작성하므로 순환 참조가 발생할 수 있어서 weak로 선언.
     
     override var backgroundColor: UIColor? {
         get {super.backgroundColor}
@@ -76,9 +70,13 @@ class CustomView: UIView {
 }
 ```
 
+<br>
 
+3) 커스텀 뷰 델리게이트를 채택한 뷰 컨트롤러에서 colorForBackground 델리게이트 메소드의 기능을 작성한다.
 
-뷰컨트롤러는 커스텀뷰델리게이트를 채택 한다.
+위임받은 메소드(colorForBackground)는 새로운 색상이 초록이면 파란색을, 나머지는 새로운 색상 그대로를 반환한다.
+
+따라서 최종적으로 커스텀 뷰의 색상이 위와 같은 규칙으로 변경이된다.
 
 ```swift
 class ViewController: UIViewController, CustomViewDelegate {
@@ -93,12 +91,4 @@ class ViewController: UIViewController, CustomViewDelegate {
   }
 }
 ```
-
-
-
-
-
-어떤 컬러를 반환받을지는 뷰컨트롤러에서 결정?
-
-실제로 사용하는 곳에서 구현?
 
