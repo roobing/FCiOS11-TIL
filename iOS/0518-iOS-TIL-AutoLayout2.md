@@ -268,7 +268,7 @@ view.setContentCompressionResistancePriority(.required, for: .vertical)
 
 예시)
 
-<img src="/Users/woobincheon/Documents/fcios11/03-TIL/iOS/iOS-TIL-Images/0518-iOS-TIL-AutoLayout2-03.gif" alt="0518-iOS-TIL-AutoLayout2-03" style="zoom:50%;" />
+<img src="/iOS/iOS-TIL-Images/0518-iOS-TIL-AutoLayout2-03.gif" alt="0518-iOS-TIL-AutoLayout2-03" style="zoom:50%;" />
 
 Storyboard로 적용한 Constraint를 IBOutlet으로 연결해서 설정가능하다.
 
